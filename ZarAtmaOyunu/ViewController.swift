@@ -34,8 +34,54 @@ class ViewController: UIViewController {
         }
     }
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if suankiSet > maxSetSayisi {
+            return
+        }
+        
         zarDegerleriniUret()
     }
+    
+    func setSonucu(zar1 : Int , zar2 : Int){
+        if oyuncuSıra == 1 {
+            oyuncuPuanları.birinciOyuncuPuani = zar1 + zar2
+            lblOyuncu1Puan.text = String(oyuncuPuanları.birinciOyuncuPuani)
+            İmgOyuncu1Durum.image = UIImage(named: "bekle")
+            İmgOyuncu2Durum.image = UIImage(named: "onay")
+            lblSetSonucu.text = "Sıra 2.Oyuncuda..."
+            oyuncuSıra = 2
+            lblOyuncu2Puan.text  = "0"
+            
+        }else {
+            oyuncuPuanları.ikinciOyuncuPuani = zar1 + zar2
+            lblOyuncu2Puan.text = String(oyuncuPuanları.ikinciOyuncuPuani)
+            İmgOyuncu1Durum.image = UIImage(named: "onay")
+            İmgOyuncu2Durum.image = UIImage(named: "bekle")
+            oyuncuSıra = 1
+        }
+        
+        if oyuncuPuanları.birinciOyuncuPuani > oyuncuPuanları.ikinciOyuncuPuani {
+            oyuncuSkorları.birinciOyuncuSkoru += 1
+            lblSetSonucu.text = "\(suankiSet). Seti 1.Oyuncu Kazandı..."
+            suankiSet += 1
+            lblOyuncuSkor1.text = String(oyuncuSkorları.birinciOyuncuSkoru)
+        }else if oyuncuPuanları.ikinciOyuncuPuani > oyuncuPuanları.birinciOyuncuPuani {
+            oyuncuSkorları.ikinciOyuncuSkoru += 1
+            lblSetSonucu.text = "\(suankiSet). Seti 2.Oyuncu Kazandı..."
+            suankiSet += 1
+            lblOyuncuSkor2.text = String(oyuncuSkorları.ikinciOyuncuSkoru)
+            
+        }else {
+            // Oyun berabere kalmış demektir.
+            lblSetSonucu.text = "\(suankiSet). Set Beraber kalmıştır..."
+        }
+          
+        oyuncuPuanları.birinciOyuncuPuani = 0
+        oyuncuPuanları.ikinciOyuncuPuani = 0
+        
+        
+    }
+    
+    
         func zarDegerleriniUret(){
        let zar1 = arc4random_uniform(6)+1
         let zar2 = arc4random_uniform(6)+1
@@ -43,6 +89,18 @@ class ViewController: UIViewController {
             İmgZar1.image = UIImage(named: String(zar1))
             İmgZar2.image = UIImage(named: String(zar2))
             
+            setSonucu(zar1: Int(zar1), zar2: Int(zar2))
+            
+            
+            
+            if suankiSet > maxSetSayisi {
+                if oyuncuSkorları.birinciOyuncuSkoru > oyuncuSkorları.ikinciOyuncuSkoru {
+                    lblSetSonucu.text = "1.Oyuncu Kazandı..."
+                }
+                else {
+                lblSetSonucu.text = "2.Oyuncu Kazandı..."
+            }
+            }
     }
     
     
