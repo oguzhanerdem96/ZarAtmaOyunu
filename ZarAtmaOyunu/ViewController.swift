@@ -58,7 +58,7 @@ class ViewController: UIViewController {
             İmgOyuncu1Durum.image = UIImage(named: "onay")
             İmgOyuncu2Durum.image = UIImage(named: "bekle")
             oyuncuSıra = 1
-        }
+        
         
         if oyuncuPuanları.birinciOyuncuPuani > oyuncuPuanları.ikinciOyuncuPuani {
             oyuncuSkorları.birinciOyuncuSkoru += 1
@@ -76,9 +76,7 @@ class ViewController: UIViewController {
             lblSetSonucu.text = "\(suankiSet). Set Beraber kalmıştır..."
         }
           
-        oyuncuPuanları.birinciOyuncuPuani = 0
-        oyuncuPuanları.ikinciOyuncuPuani = 0
-        
+        }
         
     }
     func zarDegerleriniUret(){
