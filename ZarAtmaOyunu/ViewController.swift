@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let arkaPlan = UIImage(named: "arkaPlan" ){
             self.view.backgroundColor = UIColor(patternImage: arkaPlan)
         }
@@ -80,32 +81,35 @@ class ViewController: UIViewController {
         
         
     }
-    
-    
-        func zarDegerleriniUret(){
-       let zar1 = arc4random_uniform(6)+1
-        let zar2 = arc4random_uniform(6)+1
-        print("zar1 : \(zar1) , zar2 : \(zar2)")
-            İmgZar1.image = UIImage(named: String(zar1))
-            İmgZar2.image = UIImage(named: String(zar2))
+    func zarDegerleriniUret(){
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5 ) {
+
+            let zar1 = arc4random_uniform(6)+1
+            let zar2 = arc4random_uniform(6)+1
             
-            setSonucu(zar1: Int(zar1), zar2: Int(zar2))
-            
-            
-            
-            if suankiSet > maxSetSayisi {
-                if oyuncuSkorları.birinciOyuncuSkoru > oyuncuSkorları.ikinciOyuncuSkoru {
-                    lblSetSonucu.text = "1.Oyuncu Kazandı..."
-                }
+            self.İmgZar1.image = UIImage(named: String(zar1))
+            self.İmgZar2.image = UIImage(named: String(zar2))
+        
+            self.setSonucu(zar1: Int(zar1), zar2: Int(zar2))
+        
+        
+        
+            if self.suankiSet > self.maxSetSayisi {
+                if self.oyuncuSkorları.birinciOyuncuSkoru > self.oyuncuSkorları.ikinciOyuncuSkoru {
+                    self.lblSetSonucu.text = "1.Oyuncu Kazandı..."
+            }
                 else {
-                lblSetSonucu.text = "2.Oyuncu Kazandı..."
-            }
-            }
-    }
-    
-    
-    
+                    self.lblSetSonucu.text = "2.Oyuncu Kazandı..."
+        }
+        }
+}
+        lblSetSonucu.text = "\(oyuncuSıra). Oyuncu Zar atıyor."
+        İmgZar1.image = UIImage.init(named: "bilinmeyenZar")
+        İmgZar2.image = UIImage.init(named: "bilinmeyenZar")
 
-
+        
+        
+}
 
 }
